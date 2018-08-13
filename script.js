@@ -91,7 +91,74 @@ person5.sayHello();
 //     - All vehicles have wheels, some have 2 some have 4. Not all have doors, and not all have reverse.
 //     - So to keep it simple lets have this vehicle class construct an object that only has the properties manufacturer and number of wheels.
 // Include a method called aboutVehicle, have it console log a string which will say what type of vehicle it is, who made it, and how many wheels it has.
+class Vehicle {
+    constructor(type, manufacturer, numWheels) {
+        this.type = type;
+        this.manufacturer = manufacturer;
+        this.numWheels = numWheels;
+    }
+
+    aboutVehicle() {
+        console.log(
+            `The ${this.manufacturer} ${this.type} has ${this.numWheels} wheels`
+        );
+    }
+
+    logTruckBed() {
+        return this.hasTruckBed ? 'a truck bed' : 'no truck bed';
+    }
+}
 // Trucks are vehicles, they have wheels. So let’s create a vehicle class that inherits the property of wheels from vehicle, but trucks have doors (unlike motorcycles) and they have a truck bed. So let’s add a number of doors property to this object as well as a boolean they it is true, it has a truck bed.
+class Truck extends Vehicle {
+    constructor(type, manufacturer, numWheels, doors) {
+        super(type, manufacturer, numWheels);
+        this.doors = doors;
+        this.hasTruckBed = true;
+    }
+    aboutVehicle() {
+        console.log(
+            `The ${this.manufacturer} ${this.type} has ${this.numWheels} 
+            wheels, ${this.doors} doors, and ${this.logTruckBed()}.`
+        );
+    }
+}
 // Now sedans are vehicles also, but they don’t have a truck bed (We’re ignoring the fact El Caminos broke this rule), they do have doors as well as 4 wheels. So to practice inheritance, lets just say sedans are vehicles, they aren’t trucks because they don’t have a truck bed but they get good gas mileage. Create a class sedan which extends vehicle, give it an additional property of size which could be small or medium, and give it a property of mpg.
+class Sedan extends Vehicle {
+    constructor(type, manufacturer, size, mpg) {
+        super(type, manufacturer);
+        this.numWheels = 4;
+        this.doors = 4;
+        this.hasTruckBed = false;
+        this.size = size;
+        this.mpg = mpg;
+    }
+    aboutVehicle() {
+        console.log(
+            `The ${this.size} ${this.manufacturer} ${this.type} gets ${
+                this.mpg
+            } miles per gallon, has ${this.numWheels} wheels, ${
+                this.doors
+            } doors, and ${this.logTruckBed()}`
+        );
+    }
+}
 // Motorcycles are also vehicles, but they don’t have doors, or 4 wheels, or go in reverse (technically). So create a class motorcycle that extends vehicle, have it include a property to determine that it has handlebars and not a steering wheel, as well as another property to show it has no doors.
+class Motorcycle extends Vehicle {
+    constructor(type, manufacturer) {
+        super(type, manufacturer);
+        this.numWheels = 2;
+        this.doors = false;
+        this.goReverse = false;
+        this.handlebars = true;
+    }
+    aboutVehicle() {
+        console.log(
+            `The ${this.manufacturer} ${this.type} has ${
+                this.numWheels
+            } wheels, ${this.doors ? 'doors' : 'no doors'}, and ${
+                this.handlebars ? 'has handle bars' : 'has a steering wheel'
+            }`
+        );
+    }
+}
 // Each child class inherited the method which was created in vehicle, but each child class now has other specific features which define it. Update the method in each child class to console log a string that represents these features, but still have it tell is the type, manufacturer and how many wheels it has!
